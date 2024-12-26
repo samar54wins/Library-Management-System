@@ -47,7 +47,7 @@ DATABASE_URL = "mysql+pymysql://root:password@localhost/library_management"
 4. Run the application
 To start the application, use Uvicorn (ASGI server) to run the FastAPI app.
 
-uvicorn app.main:app --reload
+python run.py 
 
 5. Access the API documentation
 Once the application is running, you can access the auto-generated Swagger UI for the API at:
