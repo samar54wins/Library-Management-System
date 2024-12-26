@@ -12,7 +12,9 @@ router = APIRouter(
     tags=["Books"],
     dependencies=[Depends(get_current_user)],  # Use Bearer Token for all routes
 )
-@router.post("/", response_model=schemas.Book)
+
+
+@router.post("/create a book", response_model=schemas.Book)
 def create_book(book: schemas.BookCreate, db: Session = Depends(get_db)):
     try:
         return crud.create_book(db, book)

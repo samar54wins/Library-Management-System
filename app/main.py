@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, APIRouter
 from fastapi.openapi.utils import get_openapi
 from .database import engine, Base
 from app.routers import users, auth, books, authors
@@ -14,6 +14,15 @@ app.include_router(auth.router)
 app.include_router(books.router)
 app.include_router(authors.router)
 
+# Define a root endpoint using an APIRouter
+main_router = APIRouter()
+
+@main_router.get("/", tags=["Main"])
+def greetings():
+    return {"message": "App run successfully"}
+
+# Include the main_router in the app
+app.include_router(main_router)
 
 # Add custom OpenAPI schema to include Bearer Token
 def custom_openapi():
@@ -37,6 +46,5 @@ def custom_openapi():
             operation["security"] = [{"BearerAuth": []}]
     app.openapi_schema = openapi_schema
     return app.openapi_schema
-
 
 app.openapi = custom_openapi
