@@ -2,8 +2,10 @@ from fastapi import FastAPI, APIRouter
 from fastapi.openapi.utils import get_openapi
 from .database import engine, Base
 from app.routers import users, auth, books, authors
+import logging
 
 app = FastAPI()
+logging.basicConfig(level=logging.DEBUG)
 
 # Drop all tables and recreate them
 Base.metadata.create_all(bind=engine)
@@ -20,7 +22,7 @@ main_router = APIRouter()
 @main_router.get("/", tags=["Main"])
 def greetings():
     return {"message": "App run successfully"}
-
+print("Start the swagger at this URL 127.0.0.1:8000/docs")
 # Include the main_router in the app
 app.include_router(main_router)
 

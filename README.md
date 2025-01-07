@@ -42,7 +42,8 @@ Create a MySQL database and update the DATABASE_URL in app/database.py with the 
 
 Example:
 
-DATABASE_URL = "mysql+pymysql://root:password@localhost/library_management"
+DATABASE_URL = "mysql+  
+://root:password@localhost/library_management"
 
 4. Run the application
 To start the application, use Uvicorn (ASGI server) to run the FastAPI app.

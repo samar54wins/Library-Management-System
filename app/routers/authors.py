@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException  
 from sqlalchemy.orm import Session
 from typing import List
 from .. import schemas, crud
@@ -8,12 +8,12 @@ from ..auth import get_current_user
 router = APIRouter(
     prefix="/authors",
     tags=["Authors"],
-    dependencies=[Depends(get_current_user)],
-    responses={404: {"description": "Not found"}},
+    dependencies=[Depends(get_current_user)], 
+     responses={404: {"description": "Not found"}},
 )
 
 @router.post("/", response_model=schemas.Author)
-def create_author(author: schemas.AuthorCreate, db: Session = Depends(get_db)):
+def create_author(author: schemas.AuthorBase, db: Session = Depends(get_db)):
     try:
         return crud.create_author(db, author)
     except Exception as e:
@@ -31,7 +31,7 @@ def read_authors(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
 
 
 @router.put("/", response_model=schemas.Author)
-def update_authors(author: schemas.AuthorUpdate, author_id: int = None, db: Session = Depends(get_db)):
+def update_authors(author: schemas.AuthorBase, author_id: int = None, db: Session = Depends(get_db)):
     try:
         authors = crud.update_author(db, author_id, author)
         return authors
