@@ -22,7 +22,6 @@ def get_database_url():
     else:
         DATABASE_URL = DATABASE_URL_Local
     
-    print(f"Using database URL: {DATABASE_URL}")  # Debugging line
     return DATABASE_URL
 
 # Usage example
