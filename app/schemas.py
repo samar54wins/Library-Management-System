@@ -1,3 +1,4 @@
+# app/schemas.py
 from datetime import date
 from typing import Optional, List
 from pydantic import BaseModel, EmailStr
@@ -10,7 +11,7 @@ class AuthorBase(BaseModel):
 
     class Config:
         from_attributes = True
-    #    orm_mode = True
+    
         json_encoders = {
             date: lambda v: v.isoformat()
         }

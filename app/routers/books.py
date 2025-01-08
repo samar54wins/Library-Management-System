@@ -7,6 +7,7 @@ from typing import List, Optional
 from .. import schemas, crud
 from ..database import get_db
 from ..auth import get_current_user
+from app.utils import fetch_book_details_by_name
 
 router = APIRouter(
     prefix="/books",
@@ -103,3 +104,25 @@ def update_books(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
     except Exception as e:
         raise HTTPException(status_code=500, 
         detail=f"Error updating books: {str(e)}")
+
+
+
+
+
+
+
+
+router = APIRouter()
+
+@router.get("/books/open_library/{book_name}")
+async def get_book_details(book_name: str):
+    """
+    Fetch book details from the Open Library API using an ISBN.
+    """
+    try:
+        book_details = fetch_book_details_by_name(book_name)
+        return {"success": True, "data": book_details}
+    except HTTPException as e:
+        raise e
+    except Exception as e:
+        raise HTTPException(status_code=500, detail="An unexpected error occurred")
